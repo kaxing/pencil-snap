@@ -1,0 +1,37 @@
+name: pencil-snap-demo
+version: 'V3.0.4-stable-k'
+summary: An open-source GUI prototyping tool
+description: |
+  This is a demostration that packaged Pecncil Project into a snap for desktop envrioment.
+  Pencil is an open-source GUI prototyping tool that's available for ALL platforms.
+  Please find official release note on https://github.com/evolus/pencil/releases/tag/v3.0.4
+
+grade: devel
+confinement: devmode
+
+apps:
+  run:
+    desktop: usr/share/applications/pencil.desktop
+    command: desktop-launch $SNAP/opt/Pencil/pencil
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+    plugs:
+      - desktop
+      - home
+
+parts:
+  pencil:
+    plugin: dump
+    source: https://pencil.evolus.vn/dl/V3.0.4/Pencil_3.0.4_amd64.deb
+    source-type: deb
+    prepare: |
+      sed -i 's|Icon=desktop|Icon=/usr/share/icons/hicolor/256x256/apps/desktop\.png|g' usr/share/applications/pencil.desktop
+    after:
+      - desktop-gtk2
+    stage-packages:
+      - libgtk2.0-0
+      - libxtst6
+      - libxss1
+      - libgconf-2-4
+      - libnss3
+      - libasound2

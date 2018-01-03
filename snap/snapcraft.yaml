@@ -6,8 +6,10 @@ description: |
   Pencil is an open-source GUI prototyping tool that's available for ALL platforms.
   Please find official release note on https://github.com/evolus/pencil/releases/tag/v3.0.4
 
-grade: devel
-confinement: devmode
+grade: stable
+confinement: stricte
+architectures:
+  - amd64
 
 apps:
   run:
@@ -16,8 +18,12 @@ apps:
     environment:
       TMPDIR: $XDG_RUNTIME_DIR
     plugs:
-      - desktop
+      - desktop-legacy
       - home
+      - gsettings
+      - network
+      - x11
+      - wayland
 
 parts:
   pencil:

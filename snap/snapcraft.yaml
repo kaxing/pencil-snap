@@ -7,7 +7,7 @@ description: |
   Please find official release note on https://github.com/evolus/pencil/releases/tag/v3.0.4
 
 grade: stable
-confinement: stricte
+confinement: strict
 architectures:
   - amd64
 

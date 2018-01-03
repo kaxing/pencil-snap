@@ -11,27 +11,30 @@ confinement: strict
 architectures:
   - amd64
 
+
 apps:
   run:
     desktop: usr/share/applications/pencil.desktop
     command: desktop-launch $SNAP/opt/Pencil/pencil
-    environment:
-      TMPDIR: $XDG_RUNTIME_DIR
     plugs:
+      - desktop
       - desktop-legacy
-      - home
       - gsettings
+      - home
       - network
       - x11
       - wayland
+      - browser-support
 
 parts:
   pencil:
     plugin: dump
     source: https://pencil.evolus.vn/dl/V3.0.4/Pencil_3.0.4_amd64.deb
-    source-type: deb
+    build-packages:
+     - execstack
     prepare: |
       sed -i 's|Icon=desktop|Icon=/usr/share/icons/hicolor/256x256/apps/desktop\.png|g' usr/share/applications/pencil.desktop
+      execstack --clear-execstack opt/Pencil/pencil
     after:
       - desktop-gtk2
     stage-packages:
